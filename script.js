@@ -700,3 +700,24 @@ document.addEventListener("click", (e) => {
         });
     }
 });
+
+
+function ymGoal(name) {
+  if (window.YM_ID && typeof ym === "function") ym(window.YM_ID, "reachGoal", name);
+}
+
+(() => {
+  const banner = document.getElementById("cookieBanner");
+  const btn = document.getElementById("cookieAccept");
+  const closeBtn = document.getElementById("cookieClose");
+  if (!banner || !btn) return;
+  let accepted = false;
+  try { accepted = localStorage.getItem("cookieAccepted") === "1"; } catch (e) {}
+  if (!accepted) banner.hidden = false;
+  btn.addEventListener("click", () => {
+    banner.hidden = true;
+    try { localStorage.setItem("cookieAccepted", "1"); } catch (e) {}
+  });
+
+  closeBtn?.addEventListener("click", () => { banner.hidden = true; });
+})();
